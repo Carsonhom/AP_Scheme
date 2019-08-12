@@ -1,0 +1,70 @@
+(load "/Applications/Racket/scheme/ttt.scm")
+;1.1)
+10
+;8
+(+ 5 3 4)
+;12
+(- 9 1)
+;8 
+(/ 6 2)
+;3
+(+ (* 2 4) (- 4 6))
+;6
+(define a 3)
+(define b (+ a 1))
+(+ a b (* a b))
+;19
+(= a b)
+;#f
+(if (and (> b a) (< b (* a b)))
+    b
+    a)
+;4
+(cond ((= a 4) 6)
+      ((= b 4) (+ 6 7 a))
+      (else 25))
+;16
+(+ 2 (if (> b a) b a))
+;6
+(* (cond ((> a b) a)
+         ((< a b) b)
+         (else -1))
+   (+ a 1))
+;16
+
+;1.2)
+(define t 5)
+(/ (+ 5 t (- 2(- 3(+ 6 (/ 1 5))))) (* 3 (- 6 2) (- 2 7)))
+
+;1.3)
+(define (square x) (* x x))
+
+(define (sum-of-squares x y) (+ (square x) (square y)))
+
+(define (sum x y z)
+  (cond ((and (> x z) (> y z)) (sum-of-squares x y))
+        ((and (> y x) (> z x)) (sum-of-squares y z))
+        ((and (> x y) (> z y)) (sum-of-squares x z))
+        (else 0)))
+
+;1.4)
+(define (a-plus-abs-b a b)
+  ((if (> b 0) + -) a b))
+;if determines what operation to do by returning the operation which works as the method for a and b
+
+;1.5)
+(define (p) (p))
+
+(define (test x y)
+  (if (= x 0)
+      0
+      y))
+
+(test 0 p)
+;applicative order takes the the inputs of x and y before plugging them into the function.
+;normal order takes the function and evaluates it before defining the variables
+;Scheme is applicative order because it takes x which is 0 and y which is p and then plugs them into the function. Since p is p, the function goes into a loop because p equals itself and the function test is trying to find out what p is.
+
+
+;1.6
+;Alyssas program gets stuck in a loop because it keeps trying to get more and more precise by running the code over and over agains

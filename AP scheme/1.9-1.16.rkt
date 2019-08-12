@@ -1,0 +1,51 @@
+(load "/Applications/Racket/scheme/ttt.scm")
+
+;1.9
+(define (+ a b)
+  (if (= a 0)
+      b
+      (inc (+ (dec a) b))))
+
+(define (+ a b)
+  (if (= a 0)
+      b
+      (+ (dec a) (inc b))))
+;The first procedure is recursive because the variables are not kept track of and the whole function explands and retracts
+;The second procedure is iterative because all of the variables are kept inside of the procedure
+
+;1.10
+(define (A x y)
+  (cond ((= y 0) 0)
+        ((= x 0) (* 2 y))
+        ((= y 1) 2)
+        (else (A (- x 1)
+                 (A x (- y 1))))))
+;(A 1 10) 1024
+;(A 2 4) 65536
+;(A 3 3)65536
+
+(define (f n) (A 0 n))
+
+(define (g n) (A 1 n))
+
+(define (h n) (A 2 n))
+
+;1.14
+
+
+
+(define (k n) (* 5 n n))
+
+;1.16
+
+(define (square x) (* x x))
+
+(define (fast-expt b n)
+  (fast-expt-iter 1 b n))
+(define (fast-expt-iter a b n)
+  (cond ((= n 0) a)
+        ((even? n) (fast-expt-iter a (square b) (/ n 2)))
+        (else (fast-expt-iter (* a b) b (- n 1)))))
+
+;Arrived at the solution by looking over a table of iterative process (fast-expt) with values b = 2 n = 10
+;Then worked backwards from the values on the table
